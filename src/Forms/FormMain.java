@@ -6,6 +6,7 @@ package Forms;
 
 import Forms.Pacientes.FormPacientes;
 import Forms_Turnos.Form_Turnos;
+import Forms.Medicos.FormMedicos_AddMod;
 
 
 /**
@@ -115,18 +116,25 @@ public class FormMain extends javax.swing.JFrame {
 
     private void btnMedicosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMedicosActionPerformed
         // TODO add your handling code here:
-      
+          try {
+        FormMedicos_AddMod form = new FormMedicos_AddMod();
+        form.setLocationRelativeTo(this); // Centrar respecto al formulario padre
+        form.setVisible(true);
+        System.out.println("FormMedicos_AddMod abierto"); // Para debug
+    } catch (Exception e) {
+        System.err.println("Error al abrir FormMedicos: " + e.getMessage());
+        e.printStackTrace(); // Ver errores en consola
+    }
     }//GEN-LAST:event_btnMedicosActionPerformed
 
     private void btnTurnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTurnosActionPerformed
         // TODO add your handling code here:
-          try {
-        Form_Turnos form = new Form_Turnos();
-        form.setLocationRelativeTo(this); // Centrar respecto al formulario padre
-        form.setVisible(true);
-        System.out.println("Form_Turnos abierto"); // Para debug
+        try {
+            Form_Turnos form = new Form_Turnos();
+            form.setLocationRelativeTo(this);
+            form.setVisible(true);
+            System.out.println("Form_Turnos abierto");
         } catch (Exception e) {
-          // Ver errores en consola 
         }
     }//GEN-LAST:event_btnTurnosActionPerformed
 
