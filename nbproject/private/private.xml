@@ -3,12 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/lucas/OneDrive/Documentos/NetBeansProjects/Gestor_Hospital/src/Forms/Pacientes/FormPacientes_AddMod.java</file>
-            <file>file:/C:/Users/lucas/OneDrive/Documentos/NetBeansProjects/Gestor_Hospital/src/Forms_Turnos/Form_Turnos.java</file>
-            <file>file:/C:/Users/lucas/OneDrive/Documentos/NetBeansProjects/Gestor_Hospital/src/Forms_Turnos/Form_Turnos_AddMod.java</file>
-            <file>file:/C:/Users/lucas/OneDrive/Documentos/NetBeansProjects/Gestor_Hospital/src/Forms/Pacientes/FormPacientes.java</file>
-            <file>file:/C:/Users/lucas/OneDrive/Documentos/NetBeansProjects/Gestor_Hospital/src/Forms/FormMain.java</file>
-            <file>file:/C:/Users/lucas/OneDrive/Documentos/NetBeansProjects/Gestor_Hospital/src/DAO/DatabaseConnection.java</file>
+            <file>file:/mnt/disco/proyects/JAAAAAAAAAAVA/Proyecto_Java_Hospital_Turnos/src/Model/Paciente.java</file>
+            <file>file:/mnt/disco/proyects/JAAAAAAAAAAVA/Proyecto_Java_Hospital_Turnos/src/Model/Medico.java</file>
+            <file>file:/mnt/disco/proyects/JAAAAAAAAAAVA/Proyecto_Java_Hospital_Turnos/src/Forms/Medicos/FormMedicos_AddMod.java</file>
         </group>
     </open-files>
 </project-private>
