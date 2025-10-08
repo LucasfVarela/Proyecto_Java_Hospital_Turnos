@@ -8,6 +8,9 @@ package Exceptions;
  *
  * @author lautisape
  */
-public class ValidationException {
+public class ValidationException extends HospitalException {
     
+    public ValidationException(String mensaje) {
+        super("Error de Validación: " + mensaje);
+    }
 }
