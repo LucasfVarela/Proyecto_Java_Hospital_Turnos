@@ -78,4 +78,8 @@ public class Medico {
     public void setHorarios(LocalTime horarios) {
         this.horarios = horarios;
     }
+
+    public void setEspecialidad(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }
