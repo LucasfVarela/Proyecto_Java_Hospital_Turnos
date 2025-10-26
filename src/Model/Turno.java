@@ -10,25 +10,25 @@ package Model;
  */
 public class Turno {
     private Integer id;
-    private String nombre;
-    private String apellido;
-    private String numeroDocumento;
-    private String telefono;
-    private String especialidad;
-    private String observaciones;
+    private Integer id_Paciente;
+    private Integer id_Medico;
+    private String Fecha;
+    private String Horario_Inicio;
+    private String Horario_Fin;
+    private String Observaciones;
     
     public Turno(){
         
     }
     
-    public Turno(Integer id, String nombre, String apellido, String numeroDocumento, String telefono, String especialidad, String observaciones){
+    public Turno(Integer id, Integer id_Paciente , Integer id_Medico,String Fecha ,String Horario_Inicio, String Horario_Fin, String observaciones){
         this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.numeroDocumento = numeroDocumento;
-        this.telefono = telefono;
-        this.especialidad = especialidad;
-        this.observaciones = observaciones;
+        this.id_Paciente = id_Paciente;
+        this.id_Medico = id_Medico;
+        this.Fecha = Fecha;
+        this.Horario_Inicio = Horario_Inicio;
+        this.Horario_Fin = Horario_Fin;
+        this.Observaciones = observaciones;
     }
     
         public Integer getId() {
@@ -38,65 +38,68 @@ public class Turno {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    public String getNombre() {
-        return nombre;
+    
+        public Integer getId_Paciente() {
+        return id_Paciente;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setId_Paciente(Integer id) {
+        this.id = id_Paciente;
+    }
+    
+        public Integer getId_Medico() {
+        return id_Paciente;
     }
 
-    public String getApellido() {
-        return apellido;
+    public void setId_Medico(Integer id) {
+        this.id = id_Medico;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public String getFecha(){
+      return Fecha;
     }
+    
+    public void setFecha(String Fecha){
+        this.Fecha = Fecha;
+    }
+    
+    public String getHorario_Inicio(){
+      return Horario_Inicio;
+    }
+    
+    public void setHorario_Inicio(String Horario){
+        this.Horario_Inicio = Horario;
+    }
+    
+    
+    public String getHorario_Fin(){
+      return Horario_Fin;
+    }
+    
+    public void setHorario_Fin(String Horario){
+        this.Horario_Fin = Horario;
+    }
+    
 
-    public String getNumeroDocumento() {
-        return numeroDocumento;
-    }
-
-    public void setNumeroDocumento(String numeroDocumento) {
-        this.numeroDocumento = numeroDocumento;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
-
-    public String getEspecialidad() {
-        return especialidad;
-    }
-
-    public void setEspecialidad(String especialidad) {
-        this.especialidad = especialidad;
-    }
 
     public String getObservaciones() {
-        return observaciones;
+        return Observaciones;
     }
 
     public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
+        this.Observaciones = observaciones;
     }
     
         @Override
     public String toString() {
         return "Turno{" +
                 "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                ", numeroDocumento='" + numeroDocumento + '\'' +
-                ", telefono='" + telefono + '\'' +
-                ", especialidad='" + especialidad + '\'' +
-                ", observaciones='" + observaciones + '\'' +
+                ", Id_Paciente='" + id_Paciente + '\'' +
+                ", id_Medico='" + id_Medico + '\'' +
+                ", Fecha='" + Fecha + '\'' +
+                ", Horario_Inicio='" + Horario_Inicio + '\'' +
+                ", Horario_Fin='" + Horario_Fin + '\'' +
+                ", observaciones='" + Observaciones + '\'' +
                 '}';
     }
 }
