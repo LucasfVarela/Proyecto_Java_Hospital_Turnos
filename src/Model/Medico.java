@@ -18,6 +18,8 @@ public class Medico {
     private String telefono;
     private String horarios;
     
+    
+    
     public Medico(){
     }
     
