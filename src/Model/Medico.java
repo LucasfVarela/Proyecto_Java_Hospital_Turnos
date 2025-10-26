@@ -16,12 +16,12 @@ public class Medico {
     private String apellido;
     private String especialidad;
     private String telefono;
-    private LocalTime horarios;
+    private String horarios;
     
     public Medico(){
     }
     
-    public Medico(Integer id, String nombre, String apellido, String especialidad, String telefono, LocalTime horarios){
+    public Medico(Integer id, String nombre, String apellido, String especialidad, String telefono, String horarios){
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -71,11 +71,11 @@ public class Medico {
     }
 
 
-    public LocalTime getHorarios() {
+    public String getHorarios() {
         return horarios;
     }
 
-    public void setHorarios(LocalTime horarios) {
+    public void setHorarios(String horarios) {
         this.horarios = horarios;
     }
 }
