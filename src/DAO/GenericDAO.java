@@ -15,14 +15,14 @@ public interface GenericDAO<T, ID> {
      * @param entity La entidad a guardar
      * @return La entidad guardada
      */
-    T save(T entity) throws Exception;
+    T Insert(T entity) throws Exception;
     
     /**
      * Busca una entidad por su ID
      * @param id El ID de la entidad
      * @return Optional con la entidad si existe
      */
-    Optional<T> findById(ID id) throws Exception;
+    T findById(int id) throws Exception;
     
     /**
      * Obtiene todas las entidades
@@ -48,7 +48,7 @@ public interface GenericDAO<T, ID> {
      * @param id El ID a verificar
      * @return true si existe, false en caso contrario
      */
-    boolean existsById(ID id) throws Exception;
+    boolean existsById(int id) throws Exception;
     
     /**
      * Cuenta el número total de entidades

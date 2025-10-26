@@ -16,7 +16,6 @@ import java.util.Optional;
 public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     
     protected abstract String getTableName();
-    protected abstract String getIdColumnName();
     protected abstract String getInsertSQL();
     protected abstract String getUpdateSQL();
     protected abstract void setInsertParameters(PreparedStatement stmt, T entity) throws SQLException;
@@ -25,7 +24,7 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     protected abstract ID getEntityId(T entity);
     
     @Override
-    public T save(T entity) throws Exception {
+    public T Insert(T entity) throws Exception {
         String sql = getInsertSQL();
         Connection conn = null;
         PreparedStatement stmt = null;
@@ -34,7 +33,7 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
         try {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-            setInsertParameters(stmt, entity);
+           // setInsertParameters(stmt, entity);
             
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
@@ -53,8 +52,8 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     }
     
     @Override
-    public Optional<T> findById(ID id) throws Exception {
-        String sql = "SELECT * FROM " + getTableName() + " WHERE " + getIdColumnName() + " = ?";
+    public T findById(int id) throws Exception {
+        String sql = "SELECT * FROM " + getTableName() + " WHERE Id = ?";
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -66,9 +65,9 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
             rs = stmt.executeQuery();
             
             if (rs.next()) {
-                return Optional.of(mapResultSetToEntity(rs));
+                return (T) Optional.of(mapResultSetToEntity(rs));
             }
-            return Optional.empty();
+            return (T) Optional.empty();
         } catch (SQLException e) {
             throw new Exception("Error en la base de datos al buscar por ID: " + e.getMessage(), e);
         } finally {
@@ -78,7 +77,7 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     
     @Override
     public List<T> findAll() throws Exception {
-        String sql = "SELECT * FROM " + getTableName();
+        String sql = "SELECT * FROM " + getTableName()+" Order BY Id ASC";
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -109,7 +108,7 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
         try {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
-            setUpdateParameters(stmt, entity);
+           // setUpdateParameters(stmt, entity);
             
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
@@ -125,7 +124,7 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     
     @Override
     public void deleteById(ID id) throws Exception {
-        String sql = "DELETE FROM " + getTableName() + " WHERE " + getIdColumnName() + " = ?";
+        String sql = "DELETE FROM " + getTableName() + " WHERE Id = ?";
         Connection conn = null;
         PreparedStatement stmt = null;
         
@@ -145,10 +144,10 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
         }
     }
     
-    @Override
-    public boolean existsById(ID id) throws Exception {
-        return findById(id).isPresent();
-    }
+   /* @Override
+    public boolean existsById(int id) throws Exception {
+       // return findById(id).isPresent();
+    }*/
     
     @Override
     public long count() throws Exception {

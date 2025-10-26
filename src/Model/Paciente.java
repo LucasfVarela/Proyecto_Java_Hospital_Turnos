@@ -18,14 +18,15 @@ public class Paciente {
     private String numeroDocumento;
     private String telefono;
     private String email;
-    private LocalDate fechaNacimiento;
+    private String sexo;
+    private String fechaNacimiento;
 
     
     public Paciente() {
     }
     
     public Paciente(Integer id, String nombre, String apellido, String numeroDocumento, 
-                   String telefono, String email, LocalDate fechaNacimiento) {
+                   String telefono, String email, String fechaNacimiento, String sexo) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -33,6 +34,7 @@ public class Paciente {
         this.telefono = telefono;
         this.email = email;
         this.fechaNacimiento = fechaNacimiento;
+        this.sexo= sexo;
 
     }
 
@@ -87,14 +89,20 @@ public class Paciente {
     }
 
     
-    public LocalDate getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
+public String getSexo() {
+        return sexo;
+    }
 
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
 
 
     public String getNombreCompleto() {

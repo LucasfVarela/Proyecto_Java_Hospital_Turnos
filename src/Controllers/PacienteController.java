@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.util.List;
 import DAO.GenericDAOImpl;
+import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class PacienteController extends GenericDAOImpl<Paciente, Integer> {
     
@@ -20,6 +23,7 @@ public class PacienteController extends GenericDAOImpl<Paciente, Integer> {
     
     public void Load(Paciente Paciente)
     {
+        
         _Model.setId(Paciente.getId());
         _Model.setNombre(Paciente.getNombre());
         _Model.setApellido(Paciente.getApellido());
@@ -27,27 +31,33 @@ public class PacienteController extends GenericDAOImpl<Paciente, Integer> {
         _Model.setTelefono(Paciente.getTelefono());
         _Model.setEmail(Paciente.getEmail());
         _Model.setFechaNacimiento(Paciente.getFechaNacimiento());
+        _Model.setSexo(Paciente.getSexo());
     }
     @Override
     protected String getTableName() {
-        return "pacientes";
+        return "Paciente";
     }
     
-    @Override
-    protected String getIdColumnName() {
-        return "id";
-    }
     
-    @Override
+  /*  @Override
     protected String getInsertSQL() {
-        return "INSERT INTO pacientes (nombre, apellido, numero_documento, telefono, email, fecha_nacimiento) " +
-               "VALUES (?, ?, ?, ?, ?, ?)";
+        return "INSERT INTO Paciente (Nombre, Apellido, Nro_Documento, Telefono, Email, Fecha_Nacimiento) " +
+               "VALUES ("+_Model.getNombre() +", "+_Model.getApellido() +","+_Model.getNumeroDocumento()+", "+_Model.getTelefono() +", "+_Model.getEmail() +", "+_Model.getFechaNacimiento() +")";
+    }*/
+    
+      @Override
+         protected String getInsertSQL() {
+        return "INSERT INTO Paciente (Nombre, Apellido, Nro_Documento, Telefono, Email,Fecha_Nacimiento,Sexo)  VALUES ('"+_Model.getNombre()+"','"+_Model.getApellido()+"','"+_Model.getNumeroDocumento()+"','"+_Model.getTelefono()+"','"+_Model.getEmail()+"',CONVERT(DATE,'"+_Model.getFechaNacimiento()+"',103),'"+_Model.getSexo()+"')";
     }
+    /*protected String getInsertSQL() {
+        return "INSERT INTO Paciente VALUES ('"+_Model.getNombre()+"','"+_Model.getApellido()+"','"+_Model.getNumeroDocumento()+"','"+_Model.getTelefono()+"','"+_Model.getEmail()+"',"+_Model.getFechaNacimiento()+",'"+ _Model.getSexo()+"')";
+    }*/
+    
     
     @Override
     protected String getUpdateSQL() {
-        return "UPDATE pacientes SET nombre = ?, apellido = ?, numero_documento = ?, " +
-               "telefono = ?, email = ?, fecha_nacimiento = ? WHERE id = ?";
+        return "UPDATE Paciente SET Nombre = '"+_Model.getNombre()+"', Apellido = '"+_Model.getApellido()+"', Nro_Documento = '"+_Model.getNumeroDocumento()+"', " +
+               "Telefono = '"+_Model.getTelefono()+"', Email = '"+_Model.getEmail()+"', Fecha_Nacimiento = CONVERT(DATE,'"+_Model.getFechaNacimiento()+"',103) ,Sexo = '"+_Model.getSexo()+"' WHERE Id = "+_Model.getId()+"";
     }
     
     @Override
@@ -75,17 +85,18 @@ public class PacienteController extends GenericDAOImpl<Paciente, Integer> {
     @Override
     protected Paciente mapResultSetToEntity(ResultSet rs) throws SQLException {
         Paciente paciente = new Paciente();
-        paciente.setId(rs.getInt("id"));
-        paciente.setNombre(rs.getString("nombre"));
-        paciente.setApellido(rs.getString("apellido"));
-        paciente.setNumeroDocumento(rs.getString("numero_documento"));
-        paciente.setTelefono(rs.getString("telefono"));
-        paciente.setEmail(rs.getString("email"));
+        paciente.setId(rs.getInt("Id"));
+        paciente.setNombre(rs.getString("Nombre"));
+        paciente.setApellido(rs.getString("Apellido"));
+        paciente.setNumeroDocumento(rs.getString("Nro_Documento"));
+        paciente.setTelefono(rs.getString("Telefono"));
+        paciente.setEmail(rs.getString("Email"));
+        paciente.setSexo(rs.getString("Sexo"));
         
         // Convertir java.sql.Date a LocalDate
-        Date fechaSQL = rs.getDate("fecha_nacimiento");
+        Date fechaSQL = rs.getDate("Fecha_Nacimiento");
         if (fechaSQL != null) {
-            paciente.setFechaNacimiento(fechaSQL.toLocalDate());
+            paciente.setFechaNacimiento(fechaSQL.toString());
         }
         
         return paciente;
@@ -100,4 +111,18 @@ public class PacienteController extends GenericDAOImpl<Paciente, Integer> {
         
         return _Model;
     }
+
+   
+    
+    public Paciente finbyId(int id ) throws Exception {
+        return super.findById(id);
+    }
+
+    @Override
+    public boolean existsById(int id) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    
+    
 }

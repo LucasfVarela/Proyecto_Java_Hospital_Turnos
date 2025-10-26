@@ -28,10 +28,19 @@ public class FormMain extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        menuBar1 = new java.awt.MenuBar();
+        menu1 = new java.awt.Menu();
+        menu2 = new java.awt.Menu();
         btnTurnos = new javax.swing.JButton();
         btnPacientes = new javax.swing.JButton();
         btnMedicos = new javax.swing.JButton();
         jDesktopPane1 = new javax.swing.JDesktopPane();
+
+        menu1.setLabel("File");
+        menuBar1.add(menu1);
+
+        menu2.setLabel("Edit");
+        menuBar1.add(menu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -170,5 +179,8 @@ public class FormMain extends javax.swing.JFrame {
     private javax.swing.JButton btnPacientes;
     private javax.swing.JButton btnTurnos;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private java.awt.Menu menu1;
+    private java.awt.Menu menu2;
+    private java.awt.MenuBar menuBar1;
     // End of variables declaration//GEN-END:variables
 }
