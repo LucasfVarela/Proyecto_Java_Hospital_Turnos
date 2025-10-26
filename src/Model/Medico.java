@@ -11,73 +11,114 @@ import java.time.LocalTime;
  * @author lautaro
  */
 public class Medico {
-    private Integer id;
-    private String nombre;
-    private String apellido;
-    private String especialidad;
-    private String telefono;
-    private String horarios;
+    private Integer Id;
+    private String Nombre;
+    private String Apellido;
+    private String Nro_Documento;
+    private String Especialidad;
+    private String Telefono;
+    private String Email;
+    private String Horario_Desde;
+    private String Horario_Hasta;
     
     
     
     public Medico(){
     }
     
-    public Medico(Integer id, String nombre, String apellido, String especialidad, String telefono, String horarios){
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.especialidad = especialidad;
-        this.telefono = telefono;
-        this.horarios = horarios;
+    public Medico(Integer id, String nombre, String apellido, String Nro_Documento,String especialidad, String telefono,String Email, String Horario_Desde, String Horario_Hasta){
+        this.Id = id;
+        this.Nombre = nombre;
+        this.Apellido = apellido;
+        this.Nro_Documento = Nro_Documento;
+        this.Especialidad = especialidad;
+        this.Telefono = telefono;
+        this.Email = Email;
+        this.Horario_Desde = Horario_Desde;
+        this.Horario_Hasta = Horario_Hasta;
     }
     
     public Integer getId() {
-        return id;
+        return Id;
     }
 
     public void setId(Integer id) {
-        this.id = id;
+        this.Id = id;
     }
 
     public String getNombre() {
-        return nombre;
+        return Nombre;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.Nombre = nombre;
     }
 
     public String getApellido() {
-        return apellido;
+        return Apellido;
     }
 
     public void setApellido(String apellido) {
-        this.apellido = apellido;
+        this.Apellido = apellido;
+    }
+     public String getNro_Documento(){
+        return Nro_Documento;
     }
     
+    public void setNro_Documento(String Nro_Documento){
+        this.Nro_Documento = Nro_Documento;
+    }
     public String getEspecialidad(){
-        return especialidad;
+        return Especialidad;
     }
     
     public void setEsPecialidad(String especialidad){
-        this.especialidad = especialidad;
+        this.Especialidad = especialidad;
     }
 
     public String getTelefono() {
-        return telefono;
+        return Telefono;
     }
 
     public void setTelefono(String telefono) {
-        this.telefono = telefono;
+        this.Telefono = telefono;
+    }
+    
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String Email) {
+        this.Email = Email;
     }
 
 
-    public String getHorarios() {
-        return horarios;
+    public String getHorario_Desde() {
+        return Horario_Desde;
     }
 
-    public void setHorarios(String horarios) {
-        this.horarios = horarios;
+    public void setHorario_Desde(String horarios) {
+        this.Horario_Desde = horarios;
+    }
+    public String getHorario_Hasta() {
+        return Horario_Hasta;
+    }
+
+    public void setHorario_Hasta(String horarios) {
+        this.Horario_Hasta = horarios;
+    }
+    
+    @Override
+    public String toString() {
+        return "Paciente{" +
+                "id=" + Id +
+                ", nombre='" + Nombre + '\'' +
+                ", apellido='" + Apellido + '\'' +
+                ", numeroDocumento='" + Nro_Documento + '\'' +
+                ", telefono='" + Telefono + '\'' +
+                ", Email='" + Email + '\'' +
+                ", Horario_Desde='" + Horario_Desde + '\'' +
+                ", Horario_Hasta='" + Horario_Hasta + '\'' +
+                '}';
     }
 }
