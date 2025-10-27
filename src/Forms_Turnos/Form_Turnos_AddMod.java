@@ -4,7 +4,9 @@
  */
 package Forms_Turnos;
 
+import Controllers.MedicoController;
 import Controllers.PacienteController;
+import Model.Medico;
 import Model.Paciente;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,7 +47,7 @@ public class Form_Turnos_AddMod extends javax.swing.JFrame {
         txtId_Paciente = new javax.swing.JTextField();
         txtPacienteNombre = new javax.swing.JTextField();
         txtPacienteNroDoc = new javax.swing.JTextField();
-        Id_Medico = new javax.swing.JTextField();
+        txtId_Medico = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtMedicoNombre = new javax.swing.JTextField();
         txtMedicoEspecialidad = new javax.swing.JTextField();
@@ -88,6 +90,12 @@ public class Form_Turnos_AddMod extends javax.swing.JFrame {
             }
         });
 
+        txtId_Medico.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtId_MedicoFocusLost(evt);
+            }
+        });
+
         jLabel3.setText("Apellido y Nombre:");
 
         jLabel4.setText("Fecha:");
@@ -116,7 +124,7 @@ public class Form_Turnos_AddMod extends javax.swing.JFrame {
                                         .addGap(6, 6, 6)
                                         .addComponent(jLabel9)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(Id_Medico, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtId_Medico, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                         .addComponent(jLabel6)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -171,7 +179,7 @@ public class Form_Turnos_AddMod extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(Id_Medico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtId_Medico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(txtMedicoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
@@ -201,8 +209,7 @@ public class Form_Turnos_AddMod extends javax.swing.JFrame {
     }//GEN-LAST:event_button1ActionPerformed
 
     private void txtId_PacienteFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtId_PacienteFocusLost
-        // TODO add your handling code here:
-     
+
         try {    
             PacienteController controller = new PacienteController();
              int Id_Paciente =Integer.parseInt(txtId_Paciente.getText().toString().trim());
@@ -223,8 +230,30 @@ public class Form_Turnos_AddMod extends javax.swing.JFrame {
             Logger.getLogger(Form_Turnos_AddMod.class.getName()).log(Level.SEVERE, null, ex);
             
         }
-      
     }//GEN-LAST:event_txtId_PacienteFocusLost
+
+    private void txtId_MedicoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtId_MedicoFocusLost
+      try {    
+            MedicoController controller = new MedicoController();
+             int Id_Medico =Integer.parseInt(txtId_Medico.getText().toString().trim());
+             if (controller.existsById(Id_Medico) != true) {
+                JOptionPane.showMessageDialog(this, "Medico no encontrado");  
+                txtId_Medico.setText("");
+                txtMedicoNombre.setText("");
+                txtMedicoEspecialidad.setText("");
+             } 
+             else{ 
+              Medico paciente = controller.findById(Id_Medico);
+              controller.Load(controller.findById(Id_Medico));
+              String NombreCompleto =controller._Model.getApellido() +","+ controller._Model.getNombre();
+              txtMedicoNombre.setText(NombreCompleto);
+              txtMedicoEspecialidad.setText(controller._Model.getEspecialidad());
+             }
+        } catch (Exception ex) {
+            Logger.getLogger(Form_Turnos_AddMod.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+    }//GEN-LAST:event_txtId_MedicoFocusLost
 
     /**
      * @param args the command line arguments
@@ -262,7 +291,6 @@ public class Form_Turnos_AddMod extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Id_Medico;
     private java.awt.Button button1;
     private javax.swing.JTextField dtFecha;
     private javax.swing.JTextField dtHorario_Desde;
@@ -278,6 +306,7 @@ public class Form_Turnos_AddMod extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JTextField txtId_Medico;
     private javax.swing.JTextField txtId_Paciente;
     private javax.swing.JTextField txtMedicoEspecialidad;
     private javax.swing.JTextField txtMedicoNombre;
