@@ -53,7 +53,7 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     
     @Override
     public T findById(int id) throws Exception {
-        String sql = "SELECT * FROM " + getTableName() + " WHERE Id = ?";
+        String sql = "SELECT * FROM " + getTableName() + " WHERE Id ="+id;
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -61,11 +61,11 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
         try {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
-            stmt.setObject(1, id);
+            //stmt.setObject(1, id);
             rs = stmt.executeQuery();
             
             if (rs.next()) {
-                return (T) Optional.of(mapResultSetToEntity(rs));
+                return mapResultSetToEntity(rs);
             }
             return (T) Optional.empty();
         } catch (SQLException e) {
@@ -214,6 +214,28 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
         } finally {
             closeResources(conn, stmt, rs);
         }
+    }
+    
+     public boolean existsById(int id) throws Exception {
+       String sql = "SELECT COUNT(*) FROM " + getTableName() + " WHERE Id = " + id;
+       Connection conn = null;
+       PreparedStatement stmt = null;
+       ResultSet rs = null;
+    
+       try {
+            conn = DatabaseConnection.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+        
+            if (rs.next()) {
+               return rs.getInt(1) > 0;
+            }
+            return false;
+           } catch (SQLException e) {
+               throw new Exception("Error al verificar existencia: " + e.getMessage(), e);
+           } finally {
+             closeResources(conn, stmt, rs);
+          }
     }
 }
 

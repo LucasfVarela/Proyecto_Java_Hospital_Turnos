@@ -114,14 +114,11 @@ public class PacienteController extends GenericDAOImpl<Paciente, Integer> {
 
    
     
-    public Paciente finbyId(int id ) throws Exception {
+ /*  public Paciente finbyId(int id ) throws Exception {
         return super.findById(id);
-    }
+    } */
 
-    @Override
-    public boolean existsById(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+   
     
     
     
