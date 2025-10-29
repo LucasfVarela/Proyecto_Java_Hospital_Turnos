@@ -4,7 +4,7 @@ import Model.Medico;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
+import java.sql.Time;
 import java.util.List;
 import DAO.GenericDAOImpl;
 import java.util.Optional;
@@ -15,15 +15,11 @@ public class MedicoController extends GenericDAOImpl<Medico, Integer> {
     
     public Medico _Model = new Medico();
     
-    public MedicoController()
-    {
+    public MedicoController() {
         
     }
     
-    
-    public void Load(Medico Medico)
-    {
-        
+    public void Load(Medico Medico) {
         _Model.setId(Medico.getId());
         _Model.setNombre(Medico.getNombre());
         _Model.setApellido(Medico.getApellido());
@@ -34,32 +30,21 @@ public class MedicoController extends GenericDAOImpl<Medico, Integer> {
         _Model.setHorario_Desde(Medico.getHorario_Desde());
         _Model.setHorario_Hasta(Medico.getHorario_Hasta());
     }
+    
     @Override
     protected String getTableName() {
         return "Medico";
     }
     
-    
-  /*  @Override
-    protected String getInsertSQL() {
-        return "INSERT INTO Medico (Nombre, Apellido, Nro_Documento, Telefono, Email, Especialidad, Horario_Desde, Horario_Hasta) " +
-               "VALUES ("+_Model.getNombre() +", "+_Model.getApellido() +","+_Model.getNro_Documento()+", "+_Model.getTelefono() +", "+_Model.getEmail() +", "+_Model.getEspecialidad() +", "+_Model.getHorario_Desde() +", "+_Model.getHorario_Hasta() +")";
-    }*/
-    
-      @Override
-         protected String getInsertSQL() {
-        return "INSERT INTO Medico (Nombre, Apellido, Nro_Documento, Telefono, Email, Especialidad, Horario_Desde, Horario_Hasta) VALUES ('"+_Model.getNombre()+"','"+_Model.getApellido()+"','"+_Model.getNro_Documento()+"','"+_Model.getTelefono()+"','"+_Model.getEmail()+"','"+_Model.getEspecialidad()+"','"+_Model.getHorario_Desde()+"','"+_Model.getHorario_Hasta()+"')";
-    }
-    /*protected String getInsertSQL() {
-        return "INSERT INTO Medico VALUES ('"+_Model.getNombre()+"','"+_Model.getApellido()+"','"+_Model.getNro_Documento()+"','"+_Model.getTelefono()+"','"+_Model.getEmail()+"','"+_Model.getEspecialidad()+"','"+_Model.getHorario_Desde()+"','"+_Model.getHorario_Hasta()+"')";
-    }*/
-    
-    
-    @Override
-    protected String getUpdateSQL() {
-        return "UPDATE Medico SET Nombre = '"+_Model.getNombre()+"', Apellido = '"+_Model.getApellido()+"', Nro_Documento = '"+_Model.getNro_Documento()+"', " +
-               "Telefono = '"+_Model.getTelefono()+"', Email = '"+_Model.getEmail()+"', Especialidad = '"+_Model.getEspecialidad()+"', Horario_Desde = '"+_Model.getHorario_Desde()+"', Horario_Hasta = '"+_Model.getHorario_Hasta()+"' WHERE Id = "+_Model.getId()+"";
-    }
+@Override
+protected String getInsertSQL() {
+    return "INSERT INTO Medico (Nombre, Apellido, Nro_Documento, Telefono, Email, Especialidad, Horario_Desde, Horario_Hasta) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+}
+
+@Override
+protected String getUpdateSQL() {
+    return "UPDATE Medico SET Nombre = ?, Apellido = ?, Nro_Documento = ?, Telefono = ?, Email = ?, Especialidad = ?, Horario_Desde = ?, Horario_Hasta = ? WHERE Id = ?";
+}
     
     @Override
     protected void setInsertParameters(PreparedStatement stmt, Medico medico) throws SQLException {
@@ -69,8 +54,19 @@ public class MedicoController extends GenericDAOImpl<Medico, Integer> {
         stmt.setString(4, medico.getTelefono());
         stmt.setString(5, medico.getEmail());
         stmt.setString(6, medico.getEspecialidad());
-        stmt.setString(7, medico.getHorario_Desde());
-        stmt.setString(8, medico.getHorario_Hasta());
+        
+        // Convertir String a java.sql.Time (formato esperado: "HH:mm:ss" o "HH:mm")
+        if (medico.getHorario_Desde() != null) {
+            stmt.setTime(7, Time.valueOf(medico.getHorario_Desde()));
+        } else {
+            stmt.setNull(7, java.sql.Types.TIME);
+        }
+        
+        if (medico.getHorario_Hasta() != null) {
+            stmt.setTime(8, Time.valueOf(medico.getHorario_Hasta()));
+        } else {
+            stmt.setNull(8, java.sql.Types.TIME);
+        }
     }
     
     @Override
@@ -89,8 +85,17 @@ public class MedicoController extends GenericDAOImpl<Medico, Integer> {
         medico.setTelefono(rs.getString("Telefono"));
         medico.setEmail(rs.getString("Email"));
         medico.setEsPecialidad(rs.getString("Especialidad"));
-        medico.setHorario_Desde(rs.getString("Horario_Desde"));
-        medico.setHorario_Hasta(rs.getString("Horario_Hasta"));
+        
+        // Convertir java.sql.Time a String
+        Time horarioDesde = rs.getTime("Horario_Desde");
+        if (horarioDesde != null) {
+            medico.setHorario_Desde(horarioDesde.toString());
+        }
+        
+        Time horarioHasta = rs.getTime("Horario_Hasta");
+        if (horarioHasta != null) {
+            medico.setHorario_Hasta(horarioHasta.toString());
+        }
         
         return medico;
     }
@@ -100,22 +105,16 @@ public class MedicoController extends GenericDAOImpl<Medico, Integer> {
         return medico.getId();
     }
     
-    public Medico GetModel(){
-        
+    public Medico GetModel() {
         return _Model;
     }
-
-   
     
-    public Medico finbyId(int id ) throws Exception {
+    public Medico finbyId(int id) throws Exception {
         return super.findById(id);
     }
 
     @Override
     public boolean existsById(int id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        throw new UnsupportedOperationException("Not supported yet.");
     }
-    
-    
-    
 }
