@@ -44,7 +44,7 @@ public class Turno {
     }
 
     public void setId_Paciente(Integer id) {
-        this.id = id_Paciente;
+        this.id_Paciente = id;
     }
     
         public Integer getId_Medico() {
@@ -52,7 +52,7 @@ public class Turno {
     }
 
     public void setId_Medico(Integer id) {
-        this.id = id_Medico;
+        this.id_Medico = id;
     }
 
     public String getFecha(){

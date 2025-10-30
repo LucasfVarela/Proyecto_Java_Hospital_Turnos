@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Date;
 import java.util.List;
 import DAO.GenericDAOImpl;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -95,8 +96,13 @@ public class PacienteController extends GenericDAOImpl<Paciente, Integer> {
         
         // Convertir java.sql.Date a LocalDate
         Date fechaSQL = rs.getDate("Fecha_Nacimiento");
+     
+            
         if (fechaSQL != null) {
             paciente.setFechaNacimiento(fechaSQL.toString());
+           // fechaStr = paciente.getFechaNacimiento();
+          //  fechaStr = convertirFecha(fechaStr);
+                    
         }
         
         return paciente;

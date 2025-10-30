@@ -67,7 +67,7 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
             if (rs.next()) {
                 return mapResultSetToEntity(rs);
             }
-            return (T) Optional.empty();
+            return null;
         } catch (SQLException e) {
             throw new Exception("Error en la base de datos al buscar por ID: " + e.getMessage(), e);
         } finally {

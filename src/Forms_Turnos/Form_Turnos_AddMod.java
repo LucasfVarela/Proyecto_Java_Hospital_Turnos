@@ -8,6 +8,7 @@ import Controllers.MedicoController;
 import Controllers.PacienteController;
 import Model.Medico;
 import Model.Paciente;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -213,15 +214,17 @@ public class Form_Turnos_AddMod extends javax.swing.JFrame {
         try {    
             PacienteController controller = new PacienteController();
              int Id_Paciente =Integer.parseInt(txtId_Paciente.getText().toString().trim());
-             if (controller.existsById(Id_Paciente) != true) {
+            
+            controller._Model = controller.findById(Id_Paciente);
+               if (controller._Model == null) {
                 JOptionPane.showMessageDialog(this, "Paciente no encontrado");  
                 txtId_Paciente.setText("");
                 txtPacienteNombre.setText("");
                 txtPacienteNroDoc.setText("");
              } 
              else{ 
-              Paciente paciente = controller.findById(Id_Paciente);
-              controller.Load(controller.findById(Id_Paciente));
+              
+              controller.Load(controller._Model);
               String NombreCompleto =controller._Model.getApellido() +","+ controller._Model.getNombre();
               txtPacienteNombre.setText(NombreCompleto);
               txtPacienteNroDoc.setText(controller._Model.getNumeroDocumento());
@@ -233,18 +236,20 @@ public class Form_Turnos_AddMod extends javax.swing.JFrame {
     }//GEN-LAST:event_txtId_PacienteFocusLost
 
     private void txtId_MedicoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtId_MedicoFocusLost
-      try {    
-            MedicoController controller = new MedicoController();
+      
+       try {    
+            
              int Id_Medico =Integer.parseInt(txtId_Medico.getText().toString().trim());
-             if (controller.existsById(Id_Medico) != true) {
+             MedicoController controller = new MedicoController();
+             controller._Model= controller.findById(Id_Medico) ;
+             if (controller._Model == null) {
                 JOptionPane.showMessageDialog(this, "Medico no encontrado");  
                 txtId_Medico.setText("");
                 txtMedicoNombre.setText("");
                 txtMedicoEspecialidad.setText("");
              } 
              else{ 
-              Medico paciente = controller.findById(Id_Medico);
-              controller.Load(controller.findById(Id_Medico));
+              controller.Load(controller._Model);
               String NombreCompleto =controller._Model.getApellido() +","+ controller._Model.getNombre();
               txtMedicoNombre.setText(NombreCompleto);
               txtMedicoEspecialidad.setText(controller._Model.getEspecialidad());
@@ -253,6 +258,8 @@ public class Form_Turnos_AddMod extends javax.swing.JFrame {
             Logger.getLogger(Form_Turnos_AddMod.class.getName()).log(Level.SEVERE, null, ex);
             
         }
+      
+      
     }//GEN-LAST:event_txtId_MedicoFocusLost
 
     /**

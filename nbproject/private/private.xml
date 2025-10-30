@@ -15,6 +15,9 @@
             <file>file:/C:/Users/lucas/Documents/IDRA/POO/Gestor_Hospital/Gestor_Hospital/Proyecto_Java_Hospital_Turnos/src/DAO/DatabaseConnection.java</file>
             <file>file:/C:/Users/lucas/Documents/IDRA/POO/Gestor_Hospital/Gestor_Hospital/Proyecto_Java_Hospital_Turnos/src/Model/Medico.java</file>
             <file>file:/C:/Users/lucas/Documents/IDRA/POO/Gestor_Hospital/Gestor_Hospital/Proyecto_Java_Hospital_Turnos/src/Model/Turno.java</file>
+            <file>file:/C:/Users/lucas/Documents/IDRA/POO/Gestor_Hospital/Gestor_Hospital/Proyecto_Java_Hospital_Turnos/src/Forms_Turnos/Form_Turnos.java</file>
+            <file>file:/C:/Users/lucas/Documents/IDRA/POO/Gestor_Hospital/Gestor_Hospital/Proyecto_Java_Hospital_Turnos/src/Controllers/MedicoController.java</file>
+            <file>file:/C:/Users/lucas/Documents/IDRA/POO/Gestor_Hospital/Gestor_Hospital/Proyecto_Java_Hospital_Turnos/src/Controllers/TurnosController.java</file>
         </group>
     </open-files>
 </project-private>

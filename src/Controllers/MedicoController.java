@@ -103,9 +103,6 @@ public class MedicoController extends GenericDAOImpl<Medico, Integer> {
     public Medico GetModel(){
         
         return _Model;
-    }
-
-   
-    
+    } 
     
 }
