@@ -73,7 +73,7 @@ Estructura del proyecto basada en el patron MVC:
 
 ---
 
-### CASO DE USO
+### CASO DE USO:
 
 ![caso de uso](https://github.com/user-attachments/assets/97108999-4e47-43e0-b174-1bbe2883be79)
 
