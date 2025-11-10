@@ -8,15 +8,11 @@ import java.sql.SQLException;
 public class DatabaseConnection {
     
     
-    private static final String SERVER = "LAPTOP-I37PQEHO\\SQLEXPRESS"; 
+    private static final String SERVER = ""; 
     private static final String DATABASE = "Gestor_Hospital";
     private static final String PORT = "1433";
     
-   /* private static final String URL = "jdbc:sqlserver://" + SERVER + 
-                                     ";databaseName=" + DATABASE + 
-                                     ";integratedSecurity=true;" +
-                                     "encrypt=true;trustServerCertificate=true";*/
-    
+  
     
     
      private static final String URL = "jdbc:sqlserver://" + SERVER + ":" + PORT + 
