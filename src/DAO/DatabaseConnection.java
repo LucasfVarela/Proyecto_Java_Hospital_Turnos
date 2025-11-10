@@ -34,7 +34,7 @@ public class DatabaseConnection {
    
     public static Connection getConnection() throws SQLException {
         try {
-            // Con Windows Authentication no se necesita usuario ni contraseña
+           
             Connection conn = DriverManager.getConnection(URL);
             System.out.println("Conexión establecida exitosamente con Windows Authentication");
             return conn;
@@ -57,23 +57,6 @@ public class DatabaseConnection {
     }
     
     
-     /**
-     * Método para probar la conexión
-     */
-   /* public static void testConnection() {
-        try (Connection conn = getConnection()) {
-            if (conn != null) {
-                System.out.println("✓ Prueba de conexión exitosa");
-                System.out.println("Base de datos: " + conn.getCatalog());
-            }
-        } catch (SQLException e) {
-            System.err.println("✗ Error en la prueba de conexión: " + e.getMessage());
-        }
-    }
-    
-    // Método main para probar (opcional, puedes eliminarlo)
-    public static void main(String[] args) {
-        testConnection();
-    }*/
+   
 
 }
