@@ -8,14 +8,11 @@ import java.sql.SQLException;
 public class DatabaseConnection {
     
     
-    private static final String SERVER = "LAPTOP-I37PQEHO\\SQLEXPRESS"; 
+    private static final String SERVER = ""; 
     private static final String DATABASE = "Gestor_Hospital";
     private static final String PORT = "1433";
     
-   /* private static final String URL = "jdbc:sqlserver://" + SERVER + 
-                                     ";databaseName=" + DATABASE + 
-                                     ";integratedSecurity=true;" +
-                                     "encrypt=true;trustServerCertificate=true";*/
+  
     
     
     
@@ -60,24 +57,6 @@ public class DatabaseConnection {
         }
     }
     
-    
-     /**
-     * Método para probar la conexión
-     */
-   /* public static void testConnection() {
-        try (Connection conn = getConnection()) {
-            if (conn != null) {
-                System.out.println("✓ Prueba de conexión exitosa");
-                System.out.println("Base de datos: " + conn.getCatalog());
-            }
-        } catch (SQLException e) {
-            System.err.println("✗ Error en la prueba de conexión: " + e.getMessage());
-        }
-    }
-    
-    // Método main para probar (opcional, puedes eliminarlo)
-    public static void main(String[] args) {
-        testConnection();
-    }*/
+
 
 }
