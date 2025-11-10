@@ -11,6 +11,13 @@ Incluye operaciones **CRUD** (Crear, Leer, Actualizar y Eliminar) con persistenc
 
 ---
 
+## Equipo
+- <img src="https://avatars.githubusercontent.com/u/179079172?v=4" width="24" height="24"> [Lautaro Vallejo](https://github.com/lautaro-vallejo)
+- <img src="https://avatars.githubusercontent.com/u/100593063?v=4" width="24" height="24"> [Lucas Varela](https://github.com/LucasfVarela) 
+- <img src="https://avatars.githubusercontent.com/u/179088507?v=4" width="24" height="24"> [Lautaro Nuccitelli](https://github.com/lautaronuccitelli)
+
+---
+
 ## Caracteristicas
 ### Gestion de Pacientes
 CRUD completo para registrar, modificar y eliminar pacientes.  
@@ -76,9 +83,4 @@ Estructura del proyecto basada en el patron MVC:
 
 ![caso de uso](https://github.com/user-attachments/assets/97108999-4e47-43e0-b174-1bbe2883be79)
 
----
 
-## Equipo
-- <img src="https://avatars.githubusercontent.com/u/179079172?v=4" width="24" height="24"> [Lautaro Vallejo](https://github.com/lautaro-vallejo)
-- <img src="https://avatars.githubusercontent.com/u/100593063?v=4" width="24" height="24"> [Lucas Varela](https://github.com/LucasfVarela) 
-- <img src="https://avatars.githubusercontent.com/u/179088507?v=4" width="24" height="24"> [Lautaro Nuccitelli](https://github.com/lautaronuccitelli)
