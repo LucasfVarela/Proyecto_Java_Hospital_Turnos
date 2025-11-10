@@ -70,6 +70,13 @@ Estructura del proyecto basada en el patron MVC:
 
 ![diagrama de frecuencia](https://github.com/user-attachments/assets/28fe0fe0-c838-4620-a992-c0f726a99825)
 
+---
+
+### CASO DE USO
+
+![caso de uso](https://github.com/user-attachments/assets/97108999-4e47-43e0-b174-1bbe2883be79)
+
+---
 
 ## Equipo
 - <img src="https://avatars.githubusercontent.com/u/179079172?v=4" width="24" height="24"> [Lautaro Vallejo](https://github.com/lautaro-vallejo)
