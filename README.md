@@ -66,6 +66,10 @@ Estructura del proyecto basada en el patron MVC:
 - Controladores: manejan la logica y comunicacion entre modelo y vista.
 
 ---
+### DIAGRAMA DE FRECUENCIA:
+
+![diagrama de frecuencia](https://github.com/user-attachments/assets/28fe0fe0-c838-4620-a992-c0f726a99825)
+
 
 ## Equipo
 - <img src="https://avatars.githubusercontent.com/u/179079172?v=4" width="24" height="24"> [Lautaro Vallejo](https://github.com/lautaro-vallejo)
