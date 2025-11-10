@@ -30,7 +30,7 @@ Utiliza un DAO Generico para comunicarse con la base de datos mediante JDBC.
 ---
 
  **Lenguaje:** Java 21  
-- **Base de datos:** Microsoft SQL Server  
+- **Base de datos:** Microsoft SQL Server
 - **Interfaz grafica:** Java Swing (`javax.swing`)  
 - **Conexion:** JDBC (Driver: `mssql-jdbc-13.2.1.jre11.jar`)
 
@@ -39,7 +39,8 @@ Utiliza un DAO Generico para comunicarse con la base de datos mediante JDBC.
 
 ## Requisitos
 - **JDK:** 21 o superior  
-- **Base de datos:** Instancia local de SQL Server  
+- **Base de datos:** Instancia local de SQL Server
+- **Link de descarga de la base de datos:** https://drive.google.com/file/d/1mJPdIp5vJVTzzvWTwn9gT5A5f10wUjE9/view?usp=sharing
 - **Driver JDBC:** `mssql-jdbc-13.2.1.jre11.jar`
 
 ---
