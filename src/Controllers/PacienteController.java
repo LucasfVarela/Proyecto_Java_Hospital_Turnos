@@ -4,14 +4,26 @@ import Model.Paciente;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Date;
-import java.util.List;
 import DAO.GenericDAOImpl;
-import java.time.LocalDate;
-import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+/**
+ * Controlador para la gestión de Pacientes en el sistema.
+ * 
+ * Esta clase extiende GenericDAOImpl para proporcionar operaciones CRUD específicas
+ * para la entidad Paciente. Además de las operaciones básicas de base de datos,
+ * 
+ * El controlador mantiene una instancia interna del modelo Paciente que se utiliza
+ * para construir las consultas SQL dinámicamente.
+ * 
+ * Funcionalidades principales:
+ * - Operaciones CRUD heredadas de GenericDAOImpl
+ * - Carga de datos del Paciente en el modelo interno
 
+ * 
+ * @author Varela Lucas , Lautaro Nuccitelli, Lautaro Vallejo
+ * @version 1.0
+ * @see GenericDAOImpl
+ * @see Paciente
+ */
 public class PacienteController extends GenericDAOImpl<Paciente, Integer> {
     
     public Paciente _Model = new Paciente();
@@ -21,7 +33,13 @@ public class PacienteController extends GenericDAOImpl<Paciente, Integer> {
         
     }
     
-    
+    /**
+     * Carga los datos de un paciente en el modelo interno del controlador.
+     * Este método transfiere todos los atributos del paciente proporcionado
+     * al modelo interno para su posterior uso en operaciones SQL.
+     * 
+     * @param Paciente El objeto Paciente cuyos datos se van a cargar
+     */
     public void Load(Paciente Paciente)
     {
         
@@ -34,55 +52,52 @@ public class PacienteController extends GenericDAOImpl<Paciente, Integer> {
         _Model.setFechaNacimiento(Paciente.getFechaNacimiento());
         _Model.setSexo(Paciente.getSexo());
     }
+    
+      /**
+     * Obtiene el nombre de la tabla en la base de datos.
+     * 
+     * @return El string "Paciente" que corresponde al nombre de la tabla
+     */
     @Override
     protected String getTableName() {
         return "Paciente";
     }
     
-    
-  /*  @Override
-    protected String getInsertSQL() {
-        return "INSERT INTO Paciente (Nombre, Apellido, Nro_Documento, Telefono, Email, Fecha_Nacimiento) " +
-               "VALUES ("+_Model.getNombre() +", "+_Model.getApellido() +","+_Model.getNumeroDocumento()+", "+_Model.getTelefono() +", "+_Model.getEmail() +", "+_Model.getFechaNacimiento() +")";
-    }*/
-    
+   
+    /**
+     * Construye la sentencia SQL para insertar un nuevo paciente.
+     * Utiliza concatenación de strings con los valores del modelo interno.
+     * 
+     * @return La sentencia SQL INSERT construida dinámicamente
+     */
       @Override
          protected String getInsertSQL() {
-        return "INSERT INTO Paciente (Nombre, Apellido, Nro_Documento, Telefono, Email,Fecha_Nacimiento,Sexo)  VALUES ('"+_Model.getNombre()+"','"+_Model.getApellido()+"','"+_Model.getNumeroDocumento()+"','"+_Model.getTelefono()+"','"+_Model.getEmail()+"',CONVERT(DATE,'"+_Model.getFechaNacimiento()+"',103),'"+_Model.getSexo()+"')";
+        return "INSERT INTO Paciente (Nombre, Apellido, Nro_Documento, Telefono, Email,Fecha_Nacimiento,Sexo)  VALUES ('"+_Model.getNombre()+"','"+_Model.getApellido()+"','"+_Model.getNumeroDocumento()+"','"+_Model.getTelefono()+"','"+_Model.getEmail()+"',CONVERT(date,'"+_Model.getFechaNacimiento()+"',23),'"+_Model.getSexo()+"')";
     }
-    /*protected String getInsertSQL() {
-        return "INSERT INTO Paciente VALUES ('"+_Model.getNombre()+"','"+_Model.getApellido()+"','"+_Model.getNumeroDocumento()+"','"+_Model.getTelefono()+"','"+_Model.getEmail()+"',"+_Model.getFechaNacimiento()+",'"+ _Model.getSexo()+"')";
-    }*/
+
     
-    
+     /**
+     * Construye la sentencia SQL para actualizar un paciente existente.
+     * Utiliza concatenación de strings con los valores del modelo interno.
+     * 
+     * 
+     * @return La sentencia SQL UPDATE construida dinámicamente
+     */
     @Override
     protected String getUpdateSQL() {
         return "UPDATE Paciente SET Nombre = '"+_Model.getNombre()+"', Apellido = '"+_Model.getApellido()+"', Nro_Documento = '"+_Model.getNumeroDocumento()+"', " +
-               "Telefono = '"+_Model.getTelefono()+"', Email = '"+_Model.getEmail()+"', Fecha_Nacimiento = CONVERT(DATE,'"+_Model.getFechaNacimiento()+"',103) ,Sexo = '"+_Model.getSexo()+"' WHERE Id = "+_Model.getId()+"";
+               "Telefono = '"+_Model.getTelefono()+"', Email = '"+_Model.getEmail()+"', Fecha_Nacimiento = CONVERT(date,'"+_Model.getFechaNacimiento()+"',23) ,Sexo = '"+_Model.getSexo()+"' WHERE Id = "+_Model.getId()+"";
     }
     
-    @Override
-    protected void setInsertParameters(PreparedStatement stmt, Paciente paciente) throws SQLException {
-        stmt.setString(1, paciente.getNombre());
-        stmt.setString(2, paciente.getApellido());
-        stmt.setString(3, paciente.getNumeroDocumento());
-        stmt.setString(4, paciente.getTelefono());
-        stmt.setString(5, paciente.getEmail());
-        
-        // Convertir LocalDate a java.sql.Date
-        if (paciente.getFechaNacimiento() != null) {
-            stmt.setDate(6, Date.valueOf(paciente.getFechaNacimiento()));
-        } else {
-            stmt.setNull(6, java.sql.Types.DATE);
-        }
-    }
-    
-    @Override
-    protected void setUpdateParameters(PreparedStatement stmt, Paciente paciente) throws SQLException {
-        setInsertParameters(stmt, paciente);
-        stmt.setInt(7, paciente.getId());
-    }
-    
+   /**
+     * Mapea un ResultSet de la base de datos a un objeto Paciente.
+     * Extrae todos los campos de la fila actual del ResultSet y construye
+     * una instancia completa de Paciente con esos datos.
+     * 
+     * @param rs El ResultSet del cual se leerán los datos
+     * @return Un objeto Paciente con los datos mapeados desde el ResultSet
+     * @throws SQLException Si ocurre un error al leer los datos del ResultSet
+     */
     @Override
     protected Paciente mapResultSetToEntity(ResultSet rs) throws SQLException {
         Paciente paciente = new Paciente();
@@ -94,16 +109,9 @@ public class PacienteController extends GenericDAOImpl<Paciente, Integer> {
         paciente.setEmail(rs.getString("Email"));
         paciente.setSexo(rs.getString("Sexo"));
         
-        // Convertir java.sql.Date a LocalDate
-        Date fechaSQL = rs.getDate("Fecha_Nacimiento");
-     
-            
-        if (fechaSQL != null) {
-            paciente.setFechaNacimiento(fechaSQL.toString());
-           // fechaStr = paciente.getFechaNacimiento();
-          //  fechaStr = convertirFecha(fechaStr);
-                    
-        }
+
+         paciente.setFechaNacimiento(rs.getDate("Fecha_Nacimiento").toLocalDate());
+      
         
         return paciente;
     }
@@ -113,19 +121,11 @@ public class PacienteController extends GenericDAOImpl<Paciente, Integer> {
         return paciente.getId();
     }
     
+    
+    
     public Paciente GetModel(){
         
         return _Model;
     }
-
-   
-    
- /*  public Paciente finbyId(int id ) throws Exception {
-        return super.findById(id);
-    } */
-
-   
-    
-    
-    
+  
 }

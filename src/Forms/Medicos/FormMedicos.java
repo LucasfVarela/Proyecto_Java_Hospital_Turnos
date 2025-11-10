@@ -1,14 +1,9 @@
+package Forms.Medicos;
 
-package Forms.Pacientes;
-
-import Controllers.PacienteController;
+import Controllers.MedicoController;
 import Controllers.TurnosController;
-import Model.Paciente;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
+import Model.Medico;
+import java.time.LocalTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
@@ -19,15 +14,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author lucas
  */
-public class FormPacientes extends javax.swing.JFrame {
+public class FormMedicos extends javax.swing.JFrame {
 
-   
-   private DateTimeFormatter dayformatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private PacienteController controller = new PacienteController();   
-    public FormPacientes() {
+    private MedicoController controller = new MedicoController();   
+    public FormMedicos() {
         initComponents();
         setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        setLocationRelativeTo(null);
         setLocationRelativeTo(null);
     }
 
@@ -39,7 +31,7 @@ public class FormPacientes extends javax.swing.JFrame {
         btnModificar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        TPacientes = new javax.swing.JTable();
+        TMedicos = new javax.swing.JTable();
         btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -65,19 +57,19 @@ public class FormPacientes extends javax.swing.JFrame {
             }
         });
 
-        TPacientes.setModel(new javax.swing.table.DefaultTableModel(
+        TMedicos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nombre", "Apellido", "Nro Doc", "Telefono", "Email", "F. Nacimiento", "Sexo"
+                "Id", "Nombre", "Apellido", "Nro Doc", "Telefono", "Email", "Especialidad", "Horario Inicio", "Horario Fin"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -88,12 +80,12 @@ public class FormPacientes extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        TPacientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        TMedicos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TPacientesMouseClicked(evt);
+                TMedicosMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(TPacientes);
+        jScrollPane2.setViewportView(TMedicos);
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -140,17 +132,16 @@ public class FormPacientes extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
 
-          new FormPacientes_AddMod().setVisible(true);
+          new FormMedicos_AddMod().setVisible(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         Modd();
-        Buscar();
     }//GEN-LAST:event_btnModificarActionPerformed
 
-    private void TPacientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TPacientesMouseClicked
+    private void TMedicosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TMedicosMouseClicked
      
-    }//GEN-LAST:event_TPacientesMouseClicked
+    }//GEN-LAST:event_TMedicosMouseClicked
    
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -179,13 +170,13 @@ public class FormPacientes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormPacientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormMedicos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormPacientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormMedicos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormPacientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormMedicos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormPacientes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormMedicos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -193,54 +184,56 @@ public class FormPacientes extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormPacientes().setVisible(true);
+                new FormMedicos().setVisible(true);
             }
         });
     }
     
      private void Buscar(){
       
-      DefaultTableModel modelo = (DefaultTableModel) TPacientes.getModel();
+      DefaultTableModel modelo = (DefaultTableModel) TMedicos.getModel();
       modelo.setRowCount(0);
         try {
-           
-            for (Paciente paciente : controller.findAll()) {
+            for (Medico medico : controller.findAll()) {
                 modelo.addRow(new Object[]{
-                    paciente.getId(),
-                    paciente.getNombre(),
-                    paciente.getApellido(),
-                    paciente.getNumeroDocumento(),
-                    paciente.getEmail(),
-                    paciente.getTelefono(),
-                     dayformatter.format( paciente.getFechaNacimiento()),
-                    paciente.getSexo()
+                    medico.getId(),
+                    medico.getNombre(),
+                    medico.getApellido(),
+                    medico.getNro_Documento(),
+                    medico.getTelefono(),
+                    medico.getEmail(),
+                    medico.getEspecialidad(),
+                    medico.getHorario_Desde().toString(),
+                    medico.getHorario_Hasta().toString()
                 });
             }   } catch (Exception ex) {
-            Logger.getLogger(FormPacientes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormMedicos.class.getName()).log(Level.SEVERE, null, ex);
         }
     } 
     private void Modd(){
-     int fila = TPacientes.getSelectedRow();
+     int fila = TMedicos.getSelectedRow();
        if (fila != -1) {
            
            try {
-               LocalDate Fecha   = LocalDate.parse(TPacientes.getValueAt(fila, 6).toString().trim(),dayformatter);
-               Paciente objPaciente = new Paciente(
-            (int) TPacientes.getValueAt(fila, 0),      // ID
-                  TPacientes.getValueAt(fila, 1).toString(), // Nombre
-                  TPacientes.getValueAt(fila, 2).toString(),   //Apellido
-                  TPacientes.getValueAt(fila, 3).toString(), // Nro_Doc
-                  TPacientes.getValueAt(fila, 5).toString(), // email
-                  TPacientes.getValueAt(fila, 4).toString()  ,   //Telefono
-                 Fecha, // Fecha
-                  TPacientes.getValueAt(fila, 7).toString() // Sexo
+               
+               Medico objMedico = new Medico(
+            (int) TMedicos.getValueAt(fila, 0),      // ID
+                  TMedicos.getValueAt(fila, 1).toString(), // Nombre
+                  TMedicos.getValueAt(fila, 2).toString(),   //Apellido
+                  TMedicos.getValueAt(fila, 3).toString(), // Nro_Doc
+                  TMedicos.getValueAt(fila, 6).toString(), // Especialidad
+                  TMedicos.getValueAt(fila, 4).toString()  ,   //Telefono
+                  TMedicos.getValueAt(fila, 5).toString(), // Email
+     LocalTime.parse(TMedicos.getValueAt(fila, 7).toString()), // Horario_Desde (se parsea después)
+     LocalTime.parse(TMedicos.getValueAt(fila, 8).toString())// Horario_Hasta (se parsea después)
         );
                
-             FormPacientes_AddMod FormPacientes_AddMod = new FormPacientes_AddMod(objPaciente);
-             FormPacientes_AddMod.setVisible(true);
+               
+             FormMedicos_AddMod FormMedicos_AddMod = new FormMedicos_AddMod(objMedico);
+             FormMedicos_AddMod.setVisible(true);
                
            } catch (Exception ex) {
-               Logger.getLogger(FormPacientes.class.getName()).log(Level.SEVERE, null, ex);
+               Logger.getLogger(FormMedicos.class.getName()).log(Level.SEVERE, null, ex);
            }
         
        }
@@ -248,29 +241,29 @@ public class FormPacientes extends javax.swing.JFrame {
     
     private void Delete()
     {
-      int fila = TPacientes.getSelectedRow();
+      int fila = TMedicos.getSelectedRow();
       if (fila != -1)
       {
           try
           {
-              
-              int Id = (int) TPacientes.getValueAt(fila, 0);
+              //IMPLEMENTAR UN HARD DETELE NO ERA LO ESPERADO - IMPLEMENTO PARA OPTIMISAR TIEMPO DE TIEMPO
+              int Id = (int) TMedicos.getValueAt(fila, 0);
               
               TurnosController turnoController = new TurnosController();
-              turnoController.deleteById_Medico_Paciente(Id,true);
+              turnoController.deleteById_Medico_Paciente(Id,false);
               
               controller.deleteById(Id);
-              JOptionPane.showMessageDialog(this, "Paciente fue eliminado exitosamente");
-              Buscar();
+              JOptionPane.showMessageDialog(this, "Medico fue eliminado exitosamente");
+               Buscar();
           }catch (Exception ex) {
-               Logger.getLogger(FormPacientes.class.getName()).log(Level.SEVERE, null, ex);
+               Logger.getLogger(FormMedicos.class.getName()).log(Level.SEVERE, null, ex);
            }
       }   
  
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TPacientes;
+    private javax.swing.JTable TMedicos;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;

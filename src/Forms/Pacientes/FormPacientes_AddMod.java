@@ -4,9 +4,12 @@ package Forms.Pacientes;
 import Controllers.PacienteController;
 import Model.Paciente;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import javax.swing.JFormattedTextField;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
@@ -17,8 +20,10 @@ import javax.swing.text.MaskFormatter;
 public class FormPacientes_AddMod extends javax.swing.JFrame {
   
     private PacienteController pacienteController = new PacienteController();
+    private DateTimeFormatter dayformatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public FormPacientes_AddMod() {
         initComponents();
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setLocationRelativeTo(null);
        
         
@@ -27,7 +32,7 @@ public class FormPacientes_AddMod extends javax.swing.JFrame {
       public FormPacientes_AddMod(Paciente paciente)  {
         initComponents();
         setLocationRelativeTo(null);
-      
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         pacienteController.Load(paciente) ;
     }
       
@@ -100,7 +105,7 @@ public class FormPacientes_AddMod extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        dtFecha_Nacimiento.setText("__ /__ /____    ");
+        dtFecha_Nacimiento.setToolTipText("");
         dtFecha_Nacimiento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dtFecha_NacimientoActionPerformed(evt);
@@ -203,8 +208,19 @@ public class FormPacientes_AddMod extends javax.swing.JFrame {
          pacienteController._Model.setApellido(apellido);
          pacienteController._Model.setTelefono(txtTelefono.getText().trim());
          pacienteController._Model.setEmail(txtEmail.getText().trim());
-         pacienteController._Model.setFechaNacimiento(dtFecha_Nacimiento.getText().trim());
+        // pacienteController._Model.setFechaNacimiento(Date.(dtFecha_Nacimiento.getText().trim()));
          pacienteController._Model.setSexo(cboSexo.getSelectedItem().toString());
+         
+         String textoFecha = dtFecha_Nacimiento.getText().trim();
+         //SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        // Date fecha = formato.parse(textoFecha);
+         
+         
+        
+         LocalDate fecha = LocalDate.parse(textoFecha,dayformatter);
+         pacienteController._Model.setFechaNacimiento(fecha);
+        
+         
          if (pacienteController._Model.getId()!= null)
          {
              pacienteController.update(pacienteController._Model);
@@ -234,7 +250,7 @@ public class FormPacientes_AddMod extends javax.swing.JFrame {
            txtEmail.setText(pacienteController._Model.getEmail());
            txtTelefono.setText(pacienteController._Model.getTelefono());
            cboSexo.setSelectedItem(pacienteController._Model.getSexo());
-           dtFecha_Nacimiento.setText(pacienteController._Model.getFechaNacimiento());
+           dtFecha_Nacimiento.setText(dayformatter.format(pacienteController._Model.getFechaNacimiento()));
        }      
     }//GEN-LAST:event_formWindowOpened
 

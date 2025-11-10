@@ -18,8 +18,6 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
     protected abstract String getTableName();
     protected abstract String getInsertSQL();
     protected abstract String getUpdateSQL();
-    protected abstract void setInsertParameters(PreparedStatement stmt, T entity) throws SQLException;
-    protected abstract void setUpdateParameters(PreparedStatement stmt, T entity) throws SQLException;
     protected abstract T mapResultSetToEntity(ResultSet rs) throws SQLException;
     protected abstract ID getEntityId(T entity);
     
@@ -33,8 +31,8 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
         try {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql, PreparedStatement.RETURN_GENERATED_KEYS);
-           // setInsertParameters(stmt, entity);
-            
+          
+           
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
                 rs = stmt.getGeneratedKeys();
@@ -108,7 +106,6 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
         try {
             conn = DatabaseConnection.getConnection();
             stmt = conn.prepareStatement(sql);
-           // setUpdateParameters(stmt, entity);
             
             int rowsAffected = stmt.executeUpdate();
             if (rowsAffected > 0) {
@@ -144,10 +141,31 @@ public abstract class GenericDAOImpl<T, ID> implements GenericDAO<T, ID> {
         }
     }
     
-   /* @Override
-    public boolean existsById(int id) throws Exception {
-       // return findById(id).isPresent();
-    }*/
+    @Override
+    public void SoftdeleteById(ID id) throws Exception {
+        
+        
+        String sql = "UPDATE " + getTableName() + "SET Activo = false  WHERE Id = ?";
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        
+        try {
+            conn = DatabaseConnection.getConnection();
+            stmt = conn.prepareStatement(sql);
+            stmt.setObject(1, id);
+            
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected == 0) {
+                throw new Exception("No se encontró la entidad para eliminar");
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error en la base de datos al eliminar: " + e.getMessage(), e);
+        } finally {
+            closeResources(conn, stmt, null);
+        }
+    }
+    
+
     
     @Override
     public long count() throws Exception {

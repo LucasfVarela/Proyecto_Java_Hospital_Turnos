@@ -18,15 +18,15 @@ public class Medico {
     private String Especialidad;
     private String Telefono;
     private String Email;
-    private String Horario_Desde;
-    private String Horario_Hasta;
+    private LocalTime Horario_Desde;
+    private LocalTime Horario_Hasta;
     
     
     
     public Medico(){
     }
     
-    public Medico(Integer id, String nombre, String apellido, String Nro_Documento,String especialidad, String telefono,String Email, String Horario_Desde, String Horario_Hasta){
+    public Medico(Integer id, String nombre, String apellido, String Nro_Documento,String especialidad, String telefono,String Email, LocalTime Horario_Desde, LocalTime Horario_Hasta){
         this.Id = id;
         this.Nombre = nombre;
         this.Apellido = apellido;
@@ -93,18 +93,19 @@ public class Medico {
     }
 
 
-    public String getHorario_Desde() {
+    public LocalTime getHorario_Desde() {
+        
         return Horario_Desde;
     }
 
-    public void setHorario_Desde(String horarios) {
+    public void setHorario_Desde(LocalTime horarios) {
         this.Horario_Desde = horarios;
     }
-    public String getHorario_Hasta() {
+    public LocalTime getHorario_Hasta() {
         return Horario_Hasta;
     }
 
-    public void setHorario_Hasta(String horarios) {
+    public void setHorario_Hasta(LocalTime horarios) {
         this.Horario_Hasta = horarios;
     }
     

@@ -4,7 +4,10 @@
  */
 package Model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -19,14 +22,14 @@ public class Paciente {
     private String telefono;
     private String email;
     private String sexo;
-    private String fechaNacimiento;
-
+   // private String fechaNacimiento;
+   private LocalDate fechaNacimiento;
     
     public Paciente() {
     }
     
     public Paciente(Integer id, String nombre, String apellido, String numeroDocumento, 
-                   String telefono, String email, String fechaNacimiento, String sexo) {
+                   String telefono, String email, LocalDate fechaNacimiento, String sexo) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -88,12 +91,23 @@ public class Paciente {
         this.email = email;
     }
 
-    
+ /*   
     public String getFechaNacimiento() {
+        
         return fechaNacimiento;
+       
+    }
+    */
+    /*public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }*/
+    public LocalDate getFechaNacimiento() {
+        
+        return fechaNacimiento;
+       
     }
 
-    public void setFechaNacimiento(String fechaNacimiento) {
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 public String getSexo() {

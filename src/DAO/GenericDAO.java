@@ -43,6 +43,12 @@ public interface GenericDAO<T, ID> {
      */
     void deleteById(ID id) throws Exception;
     
+      /**
+     * DesActiva una entidad por su ID
+     * @param id El ID de la entidad a eliminar
+     */
+    void SoftdeleteById(ID id) throws Exception;
+    
     /**
      * Verifica si existe una entidad con el ID dado
      * @param id El ID a verificar

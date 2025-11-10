@@ -4,7 +4,19 @@
  */
 package Forms_Turnos;
 
+import Controllers.TurnosController;
+import Forms.Pacientes.FormPacientes;
 import Forms.Pacientes.FormPacientes_AddMod;
+import Model.Paciente;
+import Model.Turno;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,8 +27,11 @@ public class Form_Turnos extends javax.swing.JFrame {
     /**
      * Creates new form Form_Turnos
      */
+    private TurnosController controller = new TurnosController();   
+   private DateTimeFormatter dayformatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     public Form_Turnos() {
         initComponents();
+        setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
         setLocationRelativeTo(null);
     }
 
@@ -31,15 +46,21 @@ public class Form_Turnos extends javax.swing.JFrame {
 
         btnEliminar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TTurnos = new javax.swing.JTable();
         btnNuevo = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TTurnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -47,7 +68,7 @@ public class Form_Turnos extends javax.swing.JFrame {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Id", "Nombre", "Apellido", "Nro Doc", "Especialidad", "Medico"
+                "Id", "Fecha", "Horario", "Paciente", "Medico", "Estado"
             }
         ) {
             Class[] types = new Class [] {
@@ -65,9 +86,9 @@ public class Form_Turnos extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.setColumnSelectionAllowed(true);
-        jScrollPane2.setViewportView(jTable1);
-        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        TTurnos.setColumnSelectionAllowed(true);
+        jScrollPane2.setViewportView(TTurnos);
+        TTurnos.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         btnNuevo.setText("Nuevo");
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
@@ -77,6 +98,18 @@ public class Form_Turnos extends javax.swing.JFrame {
         });
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,23 +118,29 @@ public class Form_Turnos extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 856, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 856, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnModificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBuscar)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                 .addContainerGap())
@@ -113,8 +152,45 @@ public class Form_Turnos extends javax.swing.JFrame {
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
           new Form_Turnos_AddMod().setVisible(true);
+          Buscar();
     }//GEN-LAST:event_btnNuevoActionPerformed
 
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        Delete();
+        Buscar();
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+
+        Buscar();
+
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+       Modd();
+       Buscar();
+    }//GEN-LAST:event_btnModificarActionPerformed
+     private void Modd(){
+     int fila = TTurnos.getSelectedRow();
+       if (fila != -1) {
+           
+           try {
+            Integer Id_Turno =  (int) TTurnos.getValueAt(fila, 0);     
+            controller._Model =    controller.findById(Id_Turno);
+        
+               
+             Form_Turnos_AddMod Form_Turnos_AddMod = new Form_Turnos_AddMod(controller._Model);
+             Form_Turnos_AddMod.setVisible(true);
+          
+          
+               
+           } catch (Exception ex) {
+               Logger.getLogger(FormPacientes.class.getName()).log(Level.SEVERE, null, ex);
+           }
+        
+       }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -149,12 +225,55 @@ public class Form_Turnos extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+     private void Delete()
+    {
+      int fila = TTurnos.getSelectedRow();
+      if (fila != -1)
+      {
+          try
+          {
+              
+              int Id = (int) TTurnos.getValueAt(fila, 0);
+              
+            
+              controller.deleteById(Id);
+              JOptionPane.showMessageDialog(this, "El Turno fue eliminado exitosamente");
+              Buscar();
+          }catch (Exception ex) {
+               Logger.getLogger(FormPacientes.class.getName()).log(Level.SEVERE, null, ex);
+           }
+      }   
+ 
+    }
 
+     private void Buscar(){
+      
+      DefaultTableModel modelo = (DefaultTableModel) TTurnos.getModel();
+      modelo.setRowCount(0);
+        try {
+           
+        
+            for (Turno turno : controller.getAllTurnos()) {
+                modelo.addRow(new Object[]{
+                    turno.getId(),
+                   dayformatter.format( turno.getFecha()).toString(),
+                    turno.getHora().toString(),
+                    turno.getPaciente(),
+                    turno.getMedico(),
+                    turno.getEstado(),
+                });
+            }   } catch (Exception ex) {
+            Logger.getLogger(FormPacientes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    } 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TTurnos;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
